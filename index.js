@@ -47,30 +47,13 @@ function mouseMoveHandler(e){
 document.addEventListener("touchmove", touchMoveHandler, false);
 
 
-let isTouching = false; // ติดตามว่ากำลังลากอยู่ไหม
-
-// เริ่มลาก
-canvas.addEventListener("touchstart", function(e) {
-    e.preventDefault(); // ป้องกันการเลื่อนหน้าเว็บ
-    isTouching = true;
-}, false);
-
-// ระหว่างลาก
-canvas.addEventListener("touchmove", function(e) {
-    if (!isTouching) return;
-    let touch = e.touches[0];
+function touchMoveHandler(e){
+    let touch = e.touches[0]; // Get first touch point
     let relativeX = touch.clientX - canvas.offsetLeft;
-    if (relativeX > 0 && relativeX < canvas.width) {
+    if(relativeX > 0 && relativeX < canvas.width){
         paddleX = relativeX - paddlewidth / 2;
     }
-    e.preventDefault(); // ป้องกันการ scroll
-}, false);
-
-// หยุดลาก
-canvas.addEventListener("touchend", function(e) {
-    isTouching = false;
-}, false);
-
+}
 
 
 //Draw paddle
