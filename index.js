@@ -43,6 +43,18 @@ function mouseMoveHandler(e){
     }
 }
 
+// Move paddle with touch
+document.addEventListener("touchmove", touchMoveHandler, false);
+
+function touchMoveHandler(e){
+    let touch = e.touches[0]; // Get first touch point
+    let relativeX = touch.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width){
+        paddleX = relativeX - paddlewidth / 2;
+    }
+}
+
+
 //Draw paddle
 function drawPaddle(){
     ctx.beginPath();
@@ -82,13 +94,13 @@ function drawBricks(){
 
 // Trach score
 function trackScore(){
-    ctx.font = 'bold 16px san-serif';
+    ctx.font = 'bold 16px sans-serif';
     ctx.fillStyle = '#333';
     ctx.fillText('Score : ' +score, 24, 20);
 }
 
 // Check ball hit bricks
-function hitDetech(){
+function hitDetect(){
     for (let c = 0; c < columnCount; c++){
         for(let r = 0; r < rowCount; r++){
             let b = bricks[c][r];
@@ -115,7 +127,7 @@ function init(){
     drawBricks();
     drawBall();
     drawPaddle();
-    hitDetech();
+    hitDetect();
 
     // Detect left and right walls
     if(x + dx > canvas.width - ballRadius || x + dx < ballRadius){
